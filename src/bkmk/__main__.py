@@ -9,9 +9,9 @@ import os.path
 import sys
 
 
-def file_or_std(stack, path, fmt, flag, stdname, std):
+def file_or_std(stack, path, mode, fmt, flag, stdname, std):
     if path and path != '-':
-        fp = stack.enter_context(open(path))
+        fp = stack.enter_context(open(path, mode))
         fmt = fmt if fmt else guess_format(path, verbose=True)
     else:
         fp = std
@@ -56,8 +56,8 @@ def _real_main(_prog, *argv):
     args = parser.parse_args(argv)
 
     with contextlib.ExitStack() as stack:
-        fp_in, fmt_in = file_or_std(stack, args.input, args.fmt_in, "-f", "stdin", sys.stdin)
-        fp_out, fmt_out = file_or_std(stack, args.output, args.fmt_out, "-t", "stdout", sys.stdout)
+        fp_in, fmt_in = file_or_std(stack, args.input, "r", args.fmt_in, "-f", "stdin", sys.stdin)
+        fp_out, fmt_out = file_or_std(stack, args.output, "w", args.fmt_out, "-t", "stdout", sys.stdout)
         Bookmarks.sanity_check_args(True, **args.__dict__)
         Bookmarks.read(
             fp_in, fmt_in,
