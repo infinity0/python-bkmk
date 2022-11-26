@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "roots": {
+    "synced": {
+      "type": "folder",
+      "name": "",
+      "children": [
+        {
+          "type": "folder",
+          "id": "6",
+          "name": "netcheck",
+          "children": [
+            {
+              "type": "url",
+              "id": "10",
+              "name": "NoSSL Google",
+              "url": "http://nossl.google.com/"
+            },
+            {
+              "type": "url",
+              "id": "11",
+              "name": "GeoIP Check",
+              "url": "https://www.maxmind.com/en/locate-my-ip-address"
+            },
+            {
+              "type": "url",
+              "id": "12",
+              "name": "Tor Check",
+              "url": "https://check.torproject.org/"
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "id": "7",
+          "name": "comics & 好笑的<东西> etc",
+          "children": [
+            {
+              "type": "url",
+              "id": "13",
+              "name": "The Invention of Philosophy - Existential Comics",
+              "url": "https://existentialcomics.com/"
+            },
+            {
+              "type": "url",
+              "id": "14",
+              "name": "Saturday Morning Breakfast Cereal - Love",
+              "url": "https://www.smbc-comics.com/index.php"
+            },
+            {
+              "type": "url",
+              "id": "3",
+              "name": "|",
+              "icon": "data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE2IDE2Ij48c3R5bGU+bGluZSB7IHN0cm9rZTogI2E3YTA5ZjsgfTwvc3R5bGU+PGxpbmUgeDE9IjgiIHgyPSI4IiB5MT0iMCIgeTI9IjE2IiBmaWxsPSJub25lIi8+PC9zdmc+",
+              "url": "about:bookmark-separator"
+            },
+            {
+              "type": "url",
+              "id": "15",
+              "name": "xkcd: All-in-One",
+              "url": "https://xkcd.com/"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "4",
+          "name": "Flightradar24: Live Flight Tracker - Real-Time Flight Tracker Map",
+          "url": "https://www.flightradar24.com/"
+        },
+        {
+          "type": "url",
+          "id": "18",
+          "name": "|",
+          "icon": "data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE2IDE2Ij48c3R5bGU+bGluZSB7IHN0cm9rZTogI2E3YTA5ZjsgfTwvc3R5bGU+PGxpbmUgeDE9IjgiIHgyPSI4IiB5MT0iMCIgeTI9IjE2IiBmaWxsPSJub25lIi8+PC9zdmc+",
+          "url": "about:bookmark-separator"
+        },
+        {
+          "type": "url",
+          "id": "8",
+          "name": "Google Translate",
+          "url": "https://translate.google.com/"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bkmk"
+version = "0.0.1.dev1"
+authors = [
+  { name="Ximin Luo", email="infinity0@pwned.gg" },
+]
+description = "Universal bookmark file format utility"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/infinity0/bkmk"
+"Bug Tracker" = "https://github.com/infinity0/bkmk/issues"
+
+[project.scripts]
+bkutil = "bkmk.__main__:main"

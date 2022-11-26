@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML" "http://pyxml.sourceforge.net/topics/dtds/xbel.dtd">
+<xbel version="1.0">
+<!--- highestId :12: for Floccus bookmark sync browser extension -->
+<folder id="1"><title>netcheck</title><bookmark href="http://nossl.google.com/" id="6"><title>NoSSL Google</title></bookmark>
+    <bookmark href="https://www.maxmind.com/en/locate-my-ip-address" id="7"><title>GeoIP Check</title></bookmark>
+    <bookmark href="https://check.torproject.org/" id="8"><title>Tor Check</title></bookmark></folder>
+<folder id="2"><title>comics &amp; 好笑的&lt;东西&gt; etc</title><bookmark href="https://existentialcomics.com/" id="9"><title>The Invention of Philosophy - Existential Comics</title></bookmark>
+    <bookmark href="https://www.smbc-comics.com/index.php" id="10"><title>Saturday Morning Breakfast Cereal - Love</title></bookmark>
+    <bookmark href="https://separator.floccus.org/?id=381384" id="11"><title>-----</title></bookmark>
+    <bookmark href="https://xkcd.com/" id="12"><title>xkcd: All-in-One</title></bookmark></folder>
+<bookmark href="https://www.flightradar24.com/" id="3"><title>Flightradar24: Live Flight Tracker - Real-Time Flight Tracker Map</title></bookmark>
+<bookmark href="https://separator.floccus.org/?id=872203" id="4"><title>-----</title></bookmark>
+<bookmark href="https://translate.google.com/" id="5"><title>Google Translate</title></bookmark>
+</xbel>

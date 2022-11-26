@@ -1,0 +1,15 @@
+Data here was imported from https://github.com/radam9/bookmarks-converter/tree/main/data
+
+Some of the (chrome-)json files:
+
+  - are in an internal format
+  - mix up netscape-html dates and chrome-json dates
+  - use ints not strings, which we never see in the wild
+
+These were not imported.
+
+Some of the (netscape-)html files:
+
+  - mix internal dates and netscape-html dates, a factor of 1000000
+
+These were manually fixed and then imported.
