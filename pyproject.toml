@@ -22,4 +22,4 @@ classifiers = [
 "Bug Tracker" = "https://github.com/infinity0/bkmk/issues"
 
 [project.scripts]
-bkutil = "bkmk.__main__:main"
+bkmk = "bkmk.__main__:main"

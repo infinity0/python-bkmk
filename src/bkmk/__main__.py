@@ -21,7 +21,7 @@ def file_or_std(stack, path, fmt, flag, stdname, std):
 
 def _real_main(_prog, *argv):
     parser = argparse.ArgumentParser(
-        prog = "bkutil",
+        prog = "bkmk",
         description = 'Convert between different bookmark formats')
 
     parser.add_argument(
