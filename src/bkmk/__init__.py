@@ -47,7 +47,7 @@ def _fill_id(node, ref):
         ref[0] += 1
 
 def _find_special_folder(node, rem):
-    if isinstance(node, Folder) and node.special:
+    if isinstance(node, Folder):
         rem.pop(node.special, None)
 
 def _fill_timestamp(ts, node):
@@ -76,10 +76,12 @@ class Bookmarks:
     def fill_special(self):
         """Fill in missing special folders, so every special folder exists"""
         rem = dict(FOLDER_DEFAULT_NAMES)
-        self.root.map_mut_share(_find_special_folder, rem)
         root_name = rem.pop(None)
+        if self.root.special is not None:
+            raise ValueError("cannot fill_special if root is a special folder")
         if not self.root.name:
             self.root.name = root_name
+        self.root.map_mut_share(_find_special_folder, rem)
         extra_children = []
         for (special, name) in rem.items():
             extra_children.append(Folder("", None, name, "", None, [], special))

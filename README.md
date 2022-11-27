@@ -118,5 +118,9 @@ Every object supports the following attributes:
   the corresponding special values of the target format, and treated specially
   by the target browser.
 
-The root object should have `"type": "folder"` for interoperability with other
-formats.
+For interoperability with other formats, we recommend that:
+
+* the root object should have `"type": "folder"` and no `special` attribute.
+* folders with `special` attributes should not be placed inside each other.
+  For maximum interoperability they should be immediate children of the root
+  folder - some formats require this, others don't.
