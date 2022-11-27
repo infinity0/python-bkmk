@@ -82,6 +82,13 @@ def _fill_timestamps(node, ts):
     else:
         assert False
 
+def _prefix_ids(node, prefix):
+    if node.id:
+        node.id = prefix + node.id
+    if isinstance(node, Folder):
+        for c in node.children:
+            _prefix_ids(c, prefix)
+
 @dataclass
 class Bookmarks:
     root: Folder
@@ -113,12 +120,15 @@ class Bookmarks:
             ts = int(time.time() * 1000000)
         _fill_timestamps(self.root, ts)
 
+    def prefix_ids(self, prefix):
+        _prefix_ids(self.root, prefix)
+
     @classmethod
     def new(cls):
         return cls(Folder.new())
 
     @classmethod
-    def read(cls, fp_in, fmt_in, fill_special=False, fill_ids=False, fill_timestamps=False):
+    def read(cls, fp_in, fmt_in, fill_special=False, fill_ids=False, fill_timestamps=False, prefix_ids=""):
         if fmt_in not in FORMATS:
             raise ValueError("not a valid format: %s" % fmt_in)
         bm = cls(globals()[fmt_in.replace("-", "_")].read(fp_in))
@@ -128,6 +138,8 @@ class Bookmarks:
             bm.fill_ids()
         if fill_timestamps:
             bm.fill_timestamps()
+        if prefix_ids:
+            bm.prefix_ids(prefix_ids)
         return bm
 
     def write(self, fp_out, fmt_out, cull_special=False, cull_attr=False):

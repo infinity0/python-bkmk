@@ -57,9 +57,10 @@ output_exts = ".json .html".split()
 bk = Bookmarks.new()
 for fn in input_filenames:
     with open(fn) as fp:
-        bm = Bookmarks.read(fp, "xbel").root
-        bm.name = fn
-    bk.root.children.append(bm)
+        bm = Bookmarks.read(fp, "xbel")
+        bm.root.name = fn
+        bm.prefix_ids(fn.replace(".xbel", "-"))
+    bk.root.children.append(bm.root)
 # fill in special top-level folders that browsers sometimes expect/require when importing
 bk.fill_special()
 # fill in timestamps for completeness

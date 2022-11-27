@@ -44,6 +44,9 @@ def _real_main(_prog, *argv):
         '--fill-timestamps', default=False, action=argparse.BooleanOptionalAction,
         help="Fill in missing timestamps after reading, so every element has all timestamps")
     parser.add_argument(
+        '--prefix-ids', default="", metavar="PREFIX",
+        help="Add a prefix to all existing ids after reading, useful when combining several sources")
+    parser.add_argument(
         '--cull-special', default=False, action=argparse.BooleanOptionalAction,
         help="Cull empty special folders that are not recognised by the output format")
     parser.add_argument(
@@ -61,7 +64,7 @@ def _real_main(_prog, *argv):
         Bookmarks.sanity_check_args(True, **args.__dict__)
         Bookmarks.read(
             fp_in, fmt_in,
-            **{k: getattr(args, k) for k in ("fill_special", "fill_ids", "fill_timestamps")}
+            **{k: getattr(args, k) for k in ("fill_special", "fill_ids", "fill_timestamps", "prefix_ids")}
         ).write(
             fp_out, fmt_out,
             **{k: getattr(args, k) for k in ("cull_special", "cull_attr")}
