@@ -28,6 +28,12 @@ class Base:
     """When this entry was added."""
     date_added: int | None # unix epoch, micros
 
+    def map_mut(self, mut):
+        mut(self)
+
+    def map_mut_share(self, mut, share):
+        mut(self, share)
+
     def _debug_eq(self, other, accept, xchildren, depth):
         r = []
         r.append(_debug_eq_attr(self, other, accept, depth, "id date_added"))
@@ -92,6 +98,22 @@ def _keep_child(cull_special, supported, node):
 class Folder(UserEntry):
     children: list['BookmarksTy']
     special: None | SpecialFolder
+
+    def map_mut(self, mut):
+        """Apply a mutation to every item in the folder and its subfolders."""
+        mut(self)
+        for c in self.children:
+            c.map_mut(mut)
+
+    def map_mut_share(self, mut, share):
+        """Apply a mutation with access to shared state, to every item in the folder and its subfolders.
+
+        The share should be a container, not a single value. To share a single
+        variable, put it inside a list of length 1.
+        """
+        mut(self, share)
+        for c in self.children:
+            c.map_mut_share(mut, share)
 
     def _debug_eq(self, other, accept, xchildren, depth=0):
         if type(self) != type(other):

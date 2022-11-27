@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import partial
 
 from . import bkmk_json, xbel, chrome_json, netscape_html
 from .base import *
@@ -37,57 +38,33 @@ def _to_numid(i):
     except ValueError:
         return (10**len(i), i)
 
-def _find_max_id(node):
-    iid = _to_numid(node.id)
-    if isinstance(node, Folder):
-        return max([iid] + [_find_max_id(c) for c in node.children])
-    else:
-        return iid
+def _set_max_id(node, ref):
+    ref[0] = max(ref[0], _to_numid(node.id))
 
-def _fill_ids(ref, node):
-    if node.id == "":
+def _fill_id(node, ref):
+    if not node.id:
         node.id = str(ref[0])
         ref[0] += 1
-    if isinstance(node, Folder):
-        for c in node.children:
-            _fill_ids(ref, c)
 
-def _find_special_folders(rem, node):
-    if isinstance(node, Folder):
-        if node.special:
-            rem.pop(node.special, None)
-        for c in node.children:
-            _find_special_folders(rem, c)
+def _find_special_folder(node, rem):
+    if isinstance(node, Folder) and node.special:
+        rem.pop(node.special, None)
 
-def _fill_timestamps(node, ts):
-    if isinstance(node, Separator):
-        if node.date_added is None:
-            node.date_added = ts
-    elif isinstance(node, Bookmark):
-        if node.date_added is None:
-            node.date_added = ts
+def _fill_timestamp(ts, node):
+    if node.date_added is None:
+        node.date_added = ts
+    if not isinstance(node, Separator):
         if node.date_modified is None:
             node.date_modified = ts
-        if node.url_date_modified is None:
-            node.url_date_modified = ts
-        if node.url_date_visited is None:
-            node.url_date_visited = ts
-    elif isinstance(node, Folder):
-        if node.date_added is None:
-            node.date_added = ts
-        if node.date_modified is None:
-            node.date_modified = ts
-        for c in node.children:
-            _fill_timestamps(c, ts)
-    else:
-        assert False
+        if isinstance(node, Bookmark):
+            if node.url_date_modified is None:
+                node.url_date_modified = ts
+            if node.url_date_visited is None:
+                node.url_date_visited = ts
 
-def _prefix_ids(node, prefix):
+def _prefix_id(prefix, node):
     if node.id:
         node.id = prefix + node.id
-    if isinstance(node, Folder):
-        for c in node.children:
-            _prefix_ids(c, prefix)
 
 @dataclass
 class Bookmarks:
@@ -99,7 +76,7 @@ class Bookmarks:
     def fill_special(self):
         """Fill in missing special folders, so every special folder exists"""
         rem = dict(FOLDER_DEFAULT_NAMES)
-        _find_special_folders(rem, self.root)
+        self.root.map_mut_share(_find_special_folder, rem)
         root_name = rem.pop(None)
         if not self.root.name:
             self.root.name = root_name
@@ -110,18 +87,20 @@ class Bookmarks:
 
     def fill_ids(self):
         """Fill in missing ids, so every element has an id"""
-        max_id = _find_max_id(self.root)
-        _fill_ids([max_id[0] + 1], self.root)
+        max_id = [_to_numid("")]
+        self.root.map_mut_share(_set_max_id, max_id)
+        self.root.map_mut_share(_fill_id, [max_id[0][0] + 1])
 
     def fill_timestamps(self, ts=None):
         """Fill in missing timestamps, so every element has all timestamps"""
         if ts is None:
             import time
             ts = int(time.time() * 1000000)
-        _fill_timestamps(self.root, ts)
+        self.root.map_mut(partial(_fill_timestamp, ts))
 
     def prefix_ids(self, prefix):
-        _prefix_ids(self.root, prefix)
+        """Add a prefix to all existing ids, useful when combining several sources"""
+        self.root.map_mut(partial(_prefix_id, prefix))
 
     @classmethod
     def new(cls):
